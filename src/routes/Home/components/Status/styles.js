@@ -39,10 +39,6 @@ const styles = StyleSheet.create({
   icon: {
     fontSize: 20
   },
-  thumbnail: {
-    height: 50,
-    width: 50
-  },
   input: {
     justifyContent: "center",
     alignSelf: "center",

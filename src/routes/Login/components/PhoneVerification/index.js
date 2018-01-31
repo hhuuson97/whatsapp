@@ -165,7 +165,10 @@ class GetPhoneNumber extends Component {
               keyboardType="phone-pad"
               maxLength={1}
               style={styles.inputValidate}
-              onChangeText={() => Actions.GetInfo()}
+              onChangeText={() => {
+                clearInterval(this.interval);
+                Actions.GetInfo();
+              }}
             />
           </Item>
           <Text style={styles.constraint}>Nhập mã 6-chữ số</Text>

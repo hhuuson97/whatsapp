@@ -5,7 +5,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { Form, Label, Item, Input, Text } from "native-base";
 
 import Countries from "./data";
-import styles from "./style";
+import styles from "./styles";
 
 class PopupMenu extends Component {
   constructor(props) {

@@ -7,7 +7,8 @@ import {
   Right,
   Text,
   Button,
-  Segment
+  Segment,
+  Title
 } from "native-base";
 import { View, UIManager, findNodeHandle, Linking } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -52,7 +53,7 @@ class GetPhoneNumber extends Component {
           <Left />
           <Body>
             <Segment style={{ backgroundColor: "transparent" }}>
-              <Text style={styles.headertext}>Xác minh số điện thoại</Text>
+              <Title style={styles.headertext}>Xác minh số điện thoại</Title>
             </Segment>
           </Body>
           <Right>

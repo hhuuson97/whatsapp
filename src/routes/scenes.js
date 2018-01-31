@@ -8,10 +8,15 @@ import {
   ConnectGetInfo as GetInfo
 } from "./Login/container/LoginContainer";
 
+import {
+  ConnectHome as Home,
+  ConnectChat as Chat
+} from "./Home/container/HomeContainer";
+
 const scenes = Actions.create(
   <Scene key="root" hideNavBar>
     <Scene key="Login" hideNavBar>
-      <Scene key="Wellcome" component={Wellcome} title="Wellcome" initial />
+      <Scene key="Wellcome" component={Wellcome} title="Wellcome" />
       <Scene
         key="GetPhoneNumber"
         component={GetPhoneNumber}
@@ -24,6 +29,8 @@ const scenes = Actions.create(
       />
       <Scene key="GetInfo" component={GetInfo} title="Infomation" />
     </Scene>
+    <Scene key="Home" component={Home} title="Home" initial />
+    <Scene key="Chat" component={Chat} title="Chat" />
   </Scene>
 );
 

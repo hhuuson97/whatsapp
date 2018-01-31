@@ -11,17 +11,34 @@ import {
   ListItem,
   CheckBox,
   Right,
-  Body
+  Body,
+  Thumbnail
 } from "native-base";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { Actions } from "react-native-router-flux";
+
+var ImagePicker = require("react-native-image-picker");
 
 import styles from "./styles";
+
+var options = {
+  title: "Chọn ảnh đại diện",
+  customButtons: [],
+  storageOptions: {
+    skipBackup: true,
+    path: "images"
+  }
+};
 
 class GetInfo extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      checked: true
+      checked: true,
+      name: "",
+      avatar: {
+        uri: ""
+      }
     };
   }
 
@@ -37,12 +54,48 @@ class GetInfo extends Component {
           </Text>
           <Item style={styles.inputGroup}>
             <View style={styles.camera}>
-              <Button rounded style={styles.cameraButton}>
-                <VIcon name="camera" style={styles.icon} />
+              <Button
+                rounded
+                style={styles.cameraButton}
+                onPress={() => {
+                  ImagePicker.showImagePicker(options, response => {
+                    if (response.didCancel) {
+                    } else if (response.error) {
+                    } else if (response.customButton) {
+                    } else {
+                      // You can also display the image using data:
+                      let img = {
+                        uri: "data:image/jpeg;base64," + response.data
+                      };
+
+                      this.setState({
+                        avatar: {
+                          uri: img.uri
+                        }
+                      });
+                    }
+                  });
+                }}
+              >
+                {this.state.avatar.uri === "" && (
+                  <VIcon name="camera" style={styles.icon} />
+                )}
+                {this.state.avatar.uri != "" && (
+                  <Thumbnail
+                    source={this.state.avatar}
+                    style={styles.thumbnail}
+                  />
+                )}
               </Button>
             </View>
             <Item style={styles.input}>
-              <Input style={styles.inputName} placeholder="Nhập tên bạn" />
+              <Input
+                value={this.state.name}
+                style={styles.inputName}
+                placeholder="Nhập tên bạn"
+                autoCapitalize="words"
+                onChangeText={newName => this.setState({ name: newName })}
+              />
             </Item>
             <View style={{ flex: 1 }}>
               <Icon name="smile-o" style={styles.keyBoard} />
@@ -50,7 +103,18 @@ class GetInfo extends Component {
           </Item>
         </View>
         <View style={{ flex: 2 }}>
-          <Button style={styles.button} onPress={() => {}}>
+          <Button
+            style={styles.button}
+            onPress={() => {
+              if (this.state.name) {
+                this.props.SetInfomation({
+                  image: this.state.avatar,
+                  name: this.state.name
+                });
+                Actions.reset("Home");
+              }
+            }}
+          >
             <Text>TIẾP</Text>
           </Button>
         </View>
